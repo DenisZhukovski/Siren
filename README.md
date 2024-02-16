@@ -20,8 +20,14 @@ The main goal is to generate audio track based on user preferences. Music player
 
 ![Alt text](docs/Siren.DJ.Component.png?raw=true "Sirent Software System")
 
+- [Harmony mixing](/Harmony%20mixing.md)
+- [Beat-matching](/Beat-matching%20algo.md)
+
 # Smart Shuffling Tracks
 
 Smart shuffling should generate the play list based on user profile.
 
 ![Alt text](docs/Siren.SmatrShuffling.Component.png?raw=true "Sirent Smart Shuffling Tracks")
+
+- [Shuffling](/Shuffling.md)
+- [Music Scheduling](/Music%20Scheduling.md)
