@@ -34,7 +34,7 @@ runs:
       shell: pwsh
       if: ${{ runner.os == 'Linux' }}
       run: |
-        $env:ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+        $env:ANDROID_SDK_ROOT="$HOME/Library/Android/Sdk"
         $env:PATH=";$ANDROID_SDK_ROOT/emulator"
         $env:PATH=";$ANDROID_SDK_ROOT/platform-tools"
 
