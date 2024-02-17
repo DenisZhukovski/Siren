@@ -35,8 +35,8 @@ runs:
       if: ${{ runner.os == 'Linux' }}
       run: |
         export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
-        export PATH=($PATH + $ANDROID_SDK_ROOT/emulator) -join ';'
-        export PATH=($PATH + $ANDROID_SDK_ROOT/platform-tools) -join ';'
+        export PATH="$PATH:$ANDROID_SDK_ROOT/emulator"
+        export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
 
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
