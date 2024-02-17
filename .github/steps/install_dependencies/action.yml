@@ -30,6 +30,17 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
+    - name: Set up JDK 17
+      if: ${{ runner.os == 'Linux' }}
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      if: ${{ runner.os == 'Linux' }}
+      uses: android-actions/setup-android@v3
+
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
       shell: pwsh
