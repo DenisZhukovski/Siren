@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - main
+      - release/**
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+      - release/**
+env:
+  STEP_TIMEOUT_MINUTES: 60
 
 jobs:
   build_and_deploy_job:
@@ -19,14 +23,19 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v4.0.0
-        with:
-          dotnet-version: '8.0.100'
 
-      - run: |
-          cd src/Siren.Wasm
-          dotnet build -c Release
+      - name: Install Dependencies
+        timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
+        uses: "./.github/steps/install_dependencies"
+
+      # - run: |
+      #     cd src/Siren.Wasm
+      #     dotnet build -c Release
+
+      # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
+        
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
