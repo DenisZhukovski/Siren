@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Siren",
+  "display": "standalone",
+  "name": "Siren",
+  "short_name": "Siren",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

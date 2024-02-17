@@ -1,0 +1,10 @@
+{
+	"profiles": {
+		"Siren.Windows (Unpackaged)": {
+			"commandName": "Project"
+		},
+		"Siren.Windows (Package)": {
+			"commandName": "MsixPackage"
+		}
+	}
+}
