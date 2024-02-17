@@ -31,8 +31,8 @@ runs:
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
     - name: Ubuntu Android-SDK variables
-      runs-on: ubuntu-latest
       shell: pwsh
+      if: ${{ runner.os == 'Linux' }}
       run: |
         export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
         export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
