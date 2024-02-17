@@ -16,7 +16,7 @@ env:
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v4
@@ -29,8 +29,7 @@ jobs:
         uses: "./.github/steps/install_dependencies"
 
       - run: |
-          cd src/Siren.Wasm
-          dotnet build -c Release
+          dotnet build src/Siren.Wasm.csproj -c Release
 
       # - name: Restore dependencies
       #   run: dotnet restore
