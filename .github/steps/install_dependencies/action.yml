@@ -30,11 +30,6 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
-    - name: Create directory for jni libs
-      if: ${{ runner.os == 'Linux' }}
-      shell: pwsh
-      run: mkdir app/libs && mkdir app/libs/arm64-v8a      
-
     - name: set up JDK 17
       if: ${{ runner.os == 'Linux' }}
       uses: actions/setup-java@v3
