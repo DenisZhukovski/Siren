@@ -30,6 +30,10 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
+    - name: Setup gradle
+      if: ${{ runner.os == 'Linux' }}
+      uses: gradle/gradle-build-action@v2  
+
     - name: set up JDK 17
       if: ${{ runner.os == 'Linux' }}
       uses: actions/setup-java@v3
@@ -42,10 +46,6 @@ runs:
       if: ${{ runner.os == 'Linux' }}
       uses: android-actions/setup-android@v2
 
-    - name: Setup gradle
-      if: ${{ runner.os == 'Linux' }}
-      uses: gradle/gradle-build-action@v2  
-      
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
       shell: pwsh
