@@ -30,6 +30,14 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
+    - name: Ubuntu Android-SDK variables
+      runs-on: ubuntu-latest
+      shell: pwsh
+      run: |
+        export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+        export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+        export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
       shell: pwsh
