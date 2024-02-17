@@ -34,9 +34,9 @@ runs:
       shell: pwsh
       if: ${{ runner.os == 'Linux' }}
       run: |
-        SET ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
-        SET PATH=${PATH}:$ANDROID_SDK_ROOT/emulator
-        SET PATH=${PATH}:$ANDROID_SDK_ROOT/platform-tools
+        $env:ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+        $env:PATH=";$ANDROID_SDK_ROOT/emulator"
+        $env:PATH=";$ANDROID_SDK_ROOT/platform-tools"
 
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
