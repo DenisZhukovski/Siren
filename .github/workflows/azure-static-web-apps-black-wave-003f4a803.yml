@@ -29,7 +29,7 @@ jobs:
         uses: "./.github/steps/install_dependencies"
 
       - run: |
-          dotnet build src/Siren.Wasm.csproj -c Release
+          dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
       # - name: Restore dependencies
       #   run: dotnet restore
