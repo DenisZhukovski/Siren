@@ -30,22 +30,17 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
-    - name: Setup gradle
-      if: ${{ runner.os == 'Linux' }}
-      uses: gradle/gradle-build-action@v2  
-
-    - name: set up JDK 17
-      if: ${{ runner.os == 'Linux' }}
-      uses: actions/setup-java@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
       with:
-        java-version: '17'
         distribution: 'temurin'
-        cache: gradle
+        java-version: '21'
+        cache: 'gradle'
+        cache-dependency-path: | # optional
+          sub-project/*.gradle*
+          sub-project/**/gradle-wrapper.properties
+    - run: ./gradlew build --no-daemon
     
-    - name: Setup Android SDK
-      if: ${{ runner.os == 'Linux' }}
-      uses: android-actions/setup-android@v2
-
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
       shell: pwsh
