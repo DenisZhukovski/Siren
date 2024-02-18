@@ -1,10 +1,13 @@
 name: Publish to azure static web apps
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build and test"]
     branches:
       - main
       - release/**
+    types: 
+      - completed
 env:
   STEP_TIMEOUT_MINUTES: 60
 
