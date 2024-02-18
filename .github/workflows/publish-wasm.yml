@@ -1,12 +1,7 @@
-name: Azure Static Web Apps CI/CD
+name: Publish to azure static web apps
 
 on:
   push:
-    branches:
-      - main
-      - release/**
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
     branches:
       - main
       - release/**
@@ -15,9 +10,8 @@ env:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Build and Deploy Job ${{matrix.os}}
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,19 +25,6 @@ jobs:
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
-      # - name: Restore dependencies
-      #   run: dotnet restore
-      #   shell: bash
-
-      # - name: Build 
-      #   run: dotnet build --configuration Release --no-restore
-      #   shell: bash
-
-      # - name: Test
-      #   run: dotnet test --no-build
-      #   shell: bash
-
-      
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -58,14 +39,3 @@ jobs:
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_WAVE_003F4A803 }}
-          action: "close"
