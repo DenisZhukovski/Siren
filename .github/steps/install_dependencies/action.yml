@@ -51,7 +51,7 @@ runs:
           uno-check -v --ci --non-interactive --fix --target all --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
         }
         else {
-          uno-check -v --ci --non-interactive --fix $targets --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
+          uno-check -v --ci --non-interactive --fix "$targets" --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
         }
 
         
