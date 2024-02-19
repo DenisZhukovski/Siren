@@ -30,10 +30,10 @@ jobs:
         uses: "./.github/steps/install_dependencies"
      
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore -p:TargetFramework=net8.0
 
       - name: Build 
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build -p:TargetFramework=net8.0 --configuration Release --no-restore
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
