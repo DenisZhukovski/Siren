@@ -25,15 +25,30 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Set test variable
+        id: set-variable
+        run: |
+          if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
+            echo "targetFramework=net8.0-android" >> $GITHUB_ENV
+            echo "::set-output name=targetFramework=net8.0-android"
+          else if [ ${{ matrix.os }} == 'windows-latest' ]; then
+            echo "tatargetFrameworkrget=net8.0-windows" >> $GITHUB_ENV
+            echo "::set-output name=targetFramework=net8.0-windows"
+          else
+            echo "targetFramework=net8.0-ios" >> $GITHUB_ENV
+            echo "::set-output name=targetFramework=net8.0-ios"
+          fi
+        shell: bash
+
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
      
       - name: Restore dependencies
-        run: dotnet restore -p:TargetFramework=net8.0
+        run: dotnet restore -p:TargetFramework=${{ env.targetFramework }}
 
       - name: Build 
-        run: dotnet build -p:TargetFramework=net8.0 --configuration Release --no-restore
+        run: dotnet build -p:TargetFramework=${{ env.targetFramework }} --configuration Release --no-restore
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
