@@ -1,7 +1,6 @@
 name: Build and test
 
 on:
-  push:
   pull_request:
     branches:
       - main
@@ -16,6 +15,10 @@ jobs:
   build-and-test:
     name: build-and-test
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,13 +28,29 @@ jobs:
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
+        with:
+          target-platform: linux
+
         
       - name: Restore dependencies
-        run: dotnet restore src/SirenApp/SirenApp.csproj --ignore-failed-sources
-
-      - name: Build 
-        run: dotnet build src/SirenApp/SirenApp.csproj --configuration Release --no-restore
+        run: dotnet restore --ignore-failed-sources
 
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory coverage --configuration Release \;
+  
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: DotNET Tests
+          path: "**/test-results.trx"
+          reporter: dotnet-trx
+          fail-on-error: true
       
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: 'coverage/*/coverage.cobertura.xml'
+          badge: true
+          format: 'markdown'
+          output: 'both'
