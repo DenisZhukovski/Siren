@@ -36,7 +36,7 @@ jobs:
         run: dotnet restore --ignore-failed-sources
 
       - name: Test
-        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory coverage --configuration Release /p:CollectCoverage=true \;
+        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory coverage --configuration Release \;
   
       - name: Test Report
         uses: dorny/test-reporter@v1

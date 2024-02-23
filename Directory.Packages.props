@@ -1,5 +1,6 @@
 ﻿<Project ToolsVersion="15.0">
   <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="6.0.1" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
