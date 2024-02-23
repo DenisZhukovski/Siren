@@ -39,7 +39,7 @@ runs:
 
     - name: Setup Android SDK
       if: ${{ runner.os == 'Linux' }}
-      uses: android-actions/setup-android@v4
+      uses: android-actions/setup-android@v3
 
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
