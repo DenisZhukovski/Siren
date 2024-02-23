@@ -31,4 +31,8 @@
     </PackageVersion>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SirenApp\SirenApp.csproj" />
+  </ItemGroup>
+
 </Project>

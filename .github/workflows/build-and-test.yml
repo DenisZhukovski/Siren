@@ -27,13 +27,10 @@ jobs:
         uses: "./.github/steps/install_dependencies"
         
       - name: Restore dependencies
-        run: dotnet restore src/SirenApp/SirenApp.csproj --ignore-failed-sources
-
-      - name: Build 
-        run: dotnet build src/SirenApp/SirenApp.csproj --configuration Release --no-restore
+        run: dotnet restore tests/Siren.UnitTests/Siren.UnitTests.csproj --ignore-failed-sources
 
       - name: Test
-        run: dotnet test tests/Siren.UnitTests/Siren.UnitTests.csproj --no-restore --logger "trx;LogFileName=test-results.trx" || true
+        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --no-restore --logger "trx;LogFileName=test-results.trx" --configuration Release /p:CollectCoverage=true \;
   
       - name: Test Report
         uses: dorny/test-reporter@v1
