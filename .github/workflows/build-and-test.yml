@@ -6,6 +6,7 @@ on:
       - main
       - release/**
     paths:
+      - '**.yml'
       - '**.cs'
       - '**.csproj'
 env:
