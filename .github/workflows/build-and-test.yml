@@ -51,10 +51,10 @@ jobs:
           target-platform: ${{ env.unoTargets }}
         
       - name: Restore dependencies
-        run: dotnet restore --ignore-failed-sources
+        run: dotnet restore --runtime net8.0
 
       - name: Build 
-        run: dotnet build -p:TargetFramework=${{ env.targetFramework }} --configuration Release --no-restore --ignore-failed-sources
+        run: dotnet build --runtime net8.0 --configuration Release --no-restore
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
