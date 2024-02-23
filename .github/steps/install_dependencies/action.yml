@@ -1,4 +1,4 @@
-﻿name: Install Dependencies
+name: Install Dependencies
 description: ""
 
 inputs:
@@ -50,4 +50,6 @@ runs:
         if ($targets.Contains("all")) {
           $targets = "--target all"
         }
-        uno-check -v --ci --non-interactive --fix $targets --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
+
+        $targets = "-v --ci --non-interactive --fix $targets --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates"
+        uno-check $(targets)
