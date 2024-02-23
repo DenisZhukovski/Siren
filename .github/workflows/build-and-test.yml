@@ -51,7 +51,7 @@ jobs:
           target-platform: ${{ env.unoTargets }}
         
       - name: Restore dependencies
-        run: dotnet restore -p:TargetFramework=${{ env.targetFramework }}
+        run: dotnet restore --ignore-failed-sources
 
       - name: Build 
         run: dotnet build -p:TargetFramework=${{ env.targetFramework }} --configuration Release --no-restore
