@@ -16,7 +16,7 @@ Siren AI Music Player is an intuitive tempo-based music library, which through t
 
  # Siren AI
 
-The main goal is to generate audio track based on user audio profile. Music player passes user's profile which consists of genre preferences time of the day, preffered genres etc. Based on user profile Smart DJ should generate relevant audio track to support the mood. Ideally the track should seamlessly play the next song once the current is going to finish.
+The main goal is to generate audio track based on user audio profile. Music player passes user's profile which consists of genre preferences time of the day, preffered genres etc. Based on user's profile Siren AI should generate relevant audio track to support the mood. Ideally the track should seamlessly play the next song once the current is going to finish.
 
 ![Alt text](docs/Siren.DJ.Component.png?raw=true "Sirent Software System")
 
