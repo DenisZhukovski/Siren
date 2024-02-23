@@ -24,12 +24,15 @@ jobs:
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
+        with:
+          target-platform: linux
+
         
       - name: Restore dependencies
-        run: dotnet restore tests/Siren.UnitTests/Siren.UnitTests.csproj --ignore-failed-sources
+        run: dotnet restore --ignore-failed-sources
 
       - name: Test
-        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --no-restore --logger "trx;LogFileName=test-results.trx" --configuration Release /p:CollectCoverage=true \;
+        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --logger "trx;LogFileName=test-results.trx" --configuration Release /p:CollectCoverage=true \;
   
       - name: Test Report
         uses: dorny/test-reporter@v1
