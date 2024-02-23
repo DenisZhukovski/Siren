@@ -54,7 +54,7 @@ jobs:
         run: dotnet restore --ignore-failed-sources
 
       - name: Build 
-        run: dotnet build -p:TargetFramework=${{ env.targetFramework }} --configuration Release --no-restore
+        run: dotnet build -p:TargetFramework=${{ env.targetFramework }} --configuration Release --no-restore --ignore-failed-sources
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
