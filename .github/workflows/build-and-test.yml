@@ -27,10 +27,10 @@ jobs:
         uses: "./.github/steps/install_dependencies"
         
       - name: Restore dependencies
-        run: dotnet restore --runtime unix --ignore-failed-sources
+        run: dotnet restore SirenApp/SirenApp.csproj --ignore-failed-sources
 
       - name: Build 
-        run: dotnet build -p:TargetFramework=net8.0 --configuration Release --no-restore --ignore-failed-sources
+        run: dotnet build SirenApp/SirenApp.csproj --configuration Release --no-restore
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
