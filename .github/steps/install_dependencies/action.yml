@@ -52,4 +52,4 @@ runs:
         }
 
         $targets = "-v --ci --non-interactive --fix $targets --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates"
-        uno-check ConvertFrom-StringData $targets
+        uno-check $targets ConvertFrom-StringData 
