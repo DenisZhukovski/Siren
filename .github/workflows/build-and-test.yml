@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore --runtime unix --ignore-failed-sources
 
       - name: Build 
-        run: dotnet build --runtime unix --configuration Release --no-restore --ignore-failed-sources
+        run: dotnet build -p:TargetFramework=net8.0 --configuration Release --no-restore --ignore-failed-sources
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
