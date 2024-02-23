@@ -6,6 +6,7 @@ on:
       - main
       - release/**
     paths:
+      - '**.yml'
       - '**.cs'
       - '**.csproj'
 env:
@@ -16,6 +17,7 @@ jobs:
     name: build-and-test
     runs-on: ubuntu-latest
     permissions:
+      pull-requests: write
       id-token: write
       contents: read
       checks: write
@@ -54,3 +56,14 @@ jobs:
           badge: true
           format: 'markdown'
           output: 'both'
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Write to Job Summary
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+    
