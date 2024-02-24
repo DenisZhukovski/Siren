@@ -1,4 +1,4 @@
-name: Publish to azure static web apps
+name: build-and-deploy-web
 
 on:
   workflow_run:
@@ -31,21 +31,6 @@ jobs:
       - name: Determine Status
         id: determine_status
         run: echo "STATUS=$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)" >> $GITHUB_ENV
-    
-      - name: Set Status Check
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/:owner/:repo/statuses/:sha
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          sha: ${{ github.sha }}
-          state: ${{ env.STATUS }}
-          target_url: 'https://example.com'
-          description: 'Web build succeeded'
-          context: 'build-and-deploy-web'
-        env:
-          STATUS: ${{ steps.determine_status.outputs.status }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build And Deploy
         if: github.event_name == 'push'
