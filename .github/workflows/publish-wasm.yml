@@ -16,20 +16,11 @@ jobs:
     permissions:
       statuses: write 
     steps:
-      - name: Checkout PR
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
-          ref: ${{ github.event.pull_request.head.sha }}"
-
-      - name: Checkout MAIN
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          lfs: false
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
