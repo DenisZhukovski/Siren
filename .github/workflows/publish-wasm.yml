@@ -31,19 +31,6 @@ jobs:
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
-      - name: Create status
-        run: |
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
-            "state": "${{ github.event.workflow_run.conclusion }}",
-            "context": "build-and-deploy-web",
-            "target_url": "${{ github.event.workflow_run.html_url }}"
-            }' \
-          --fail
-
       - name: Build And Deploy
         if: github.event_name == 'push'
         id: builddeploy
@@ -58,5 +45,19 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-
       
+      - uses: webiny/action-post-run@3.1.0
+        name: Create status
+        id: post-run-command
+        with:
+            run: |
+              curl --request POST \
+              --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
+              --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              --header 'content-type: application/json' \
+              --data '{
+                "state": "${{ github.event.workflow_run.conclusion }}",
+                "context": "build-and-deploy-web",
+                "target_url": "${{ github.event.workflow_run.html_url }}"
+              }'
+              --fail
