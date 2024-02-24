@@ -13,7 +13,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Create status
+    - name: Update check status
+      shell: pwsh
       run: |
         curl --request POST \
         --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
