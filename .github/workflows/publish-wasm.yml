@@ -33,7 +33,6 @@ jobs:
         run: echo "STATUS=$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)" >> $GITHUB_ENV
     
       - name: Set Status Check
-        if: github.event_name == 'pull_request'
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
