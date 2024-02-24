@@ -37,7 +37,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const context = github.context;
+            const { context } = github;
             const status = process.env.STATUS;
             github.repos.createStatus({
               ...context.repo,
