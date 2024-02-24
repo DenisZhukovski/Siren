@@ -30,7 +30,7 @@ jobs:
 
       - name: Determine Status
         id: determine_status
-        run: echo "::set-output name=status::$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)"
+        run: echo "STATUS=$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)" >> $GITHUB_ENV
     
       - name: Set Status Check
         if: github.event_name == 'pull_request'
