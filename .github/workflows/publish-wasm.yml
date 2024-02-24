@@ -1,8 +1,6 @@
 name: Publish to azure static web apps
 
 on:
-  push:
-  pull_request:
   workflow_run:
     workflows: ["build-and-test"]
     types: 
@@ -31,6 +29,27 @@ jobs:
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
+      - name: Determine Status
+        id: determine_status
+        run: echo "::set-output name=status::$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)"
+    
+      - name: Set Status Check
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const context = github.context;
+            const status = process.env.STATUS;
+            github.repos.createStatus({
+              ...context.repo,
+              sha: context.sha,
+              state: status,
+              target_url: 'https://example.com',
+              description: 'Web build succeeded',
+              context: 'build-and-deploy-web '
+            });
+
       - name: Build And Deploy
         if: github.event_name == 'push'
         id: builddeploy
@@ -45,3 +64,5 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+
+      
