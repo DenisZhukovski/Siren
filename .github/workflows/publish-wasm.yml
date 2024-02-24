@@ -37,12 +37,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { context } = github;
-            const status = process.env.STATUS;
             github.repos.createStatus({
               ...context.repo,
               sha: context.sha,
-              state: status,
+              state: process.env.STATUS,
               target_url: 'https://example.com',
               description: 'Web build succeeded',
               context: 'build-and-deploy-web '
