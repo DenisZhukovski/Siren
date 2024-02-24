@@ -49,3 +49,6 @@ jobs:
       - name: Update Check Status
         if: always()
         uses: "./.github/steps/update_check_status"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status_name: "build-and-deploy-web"
