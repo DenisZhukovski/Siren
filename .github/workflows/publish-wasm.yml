@@ -49,13 +49,18 @@ jobs:
       - name: Create status
         if: always()  
         run: |
+          if [ $? -eq 0 ]; then
+            echo "result=success" >> $GITHUB_ENV
+          else
+            echo "result=failure" >> $GITHUB_ENV
+          fi
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
           --header 'content-type: application/json' \
           --data '{
-            "state": "${{ github.event.workflow_run.conclusion }}",
+            "state": "$result",
             "context": "build-and-deploy-web",
             "target_url": "${{ github.event.workflow_run.html_url }}"
             }' \
-          --fail      
+          --fail
