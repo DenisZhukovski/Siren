@@ -36,7 +36,6 @@ jobs:
         uses: "./.github/steps/install_dependencies"
         with:
           target-platform: linux
-          installJDK: false
 
       - name: Restore dependencies
         run: dotnet restore --ignore-failed-sources

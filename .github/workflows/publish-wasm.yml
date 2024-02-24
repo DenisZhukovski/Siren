@@ -23,18 +23,16 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
         with:
-          target-platform: linux
-          installJDK: false
+          target-platform: wasm
 
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
       - name: Determine Status
         id: determine_status
-        run: echo "::set-output name=status::$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)"
+        run: echo "STATUS=$(if [ $? -eq 0 ]; then echo 'success'; else echo 'failure'; fi)" >> $GITHUB_ENV
     
       - name: Set Status Check
-        if: github.event_name == 'pull_request'
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
