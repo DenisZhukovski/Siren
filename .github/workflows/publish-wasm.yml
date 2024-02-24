@@ -22,6 +22,9 @@ jobs:
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
+        with:
+          target-platform: linux
+          installJDK: false
 
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release

@@ -36,13 +36,14 @@ jobs:
         uses: "./.github/steps/install_dependencies"
         with:
           target-platform: linux
+          installJDK: false
 
-        
       - name: Restore dependencies
         run: dotnet restore --ignore-failed-sources
 
-      - name: Test
-        run: find . -name '*[Uu]nit[Tt]ests.csproj' -exec dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory coverage --configuration Release \;
+      - name: Test Run
+        run: |
+          dotnet test tests/Siren.UnitTests/Siren.UnitTests.csproj --no-restore --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory coverage --configuration Release
   
       - name: Test Report
         uses: dorny/test-reporter@v1
