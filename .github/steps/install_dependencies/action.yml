@@ -30,13 +30,6 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       run: .\.github\Install-WindowsSdkISO.ps1 ${{ inputs.sdkVersion }}
 
-    - name: Set up JDK 21
-      if: ${{ inputs.installJDK }}
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'microsoft'
-
     # Run Uno.Check
     - name: Install ${{ inputs.target-platform }} Workloads
       shell: pwsh
