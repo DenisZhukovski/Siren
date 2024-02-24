@@ -28,14 +28,18 @@ jobs:
       - run: |
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
-      - name: Set Check Status
-        uses: haya14busa/action-workflow_run-status@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          workflow_id: ${{ github.event.workflow.id }}
-          workflow_run_id: ${{ github.event.workflow_run.id }}
-          status: ${{ job.status }}
-          conclusion: ${{ job.status }}
+      - name: Create status
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_commit.id }} \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "state": "${{ github.event.workflow_run.conclusion }}",
+            "context": "build-and-deploy-web",
+            "target_url": "${{ github.event.workflow_run.html_url }}"
+            }' \
+          --fail
 
       - name: Build And Deploy
         if: github.event_name == 'push'
