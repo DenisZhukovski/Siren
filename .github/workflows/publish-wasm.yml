@@ -2,10 +2,7 @@ name: Publish to azure static web apps
 
 on:
   workflow_run:
-    workflows: ["Build and test"]
-    branches:
-      - main
-      - release/**
+    workflows: ["build-and-test"]
     types: 
       - completed
 env:
@@ -14,7 +11,7 @@ env:
 jobs:
   build_and_deploy_job:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Build and Deploy Job
+    name: build-and-deploy-web
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +27,7 @@ jobs:
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
       - name: Build And Deploy
+        if: github.ref == 'refs/heads/main'
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
