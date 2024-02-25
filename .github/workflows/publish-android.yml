@@ -21,16 +21,32 @@ jobs:
           submodules: true
           lfs: false
           ref: ${{ github.event.workflow_run.head_branch }}
-
+      - name: Setup Keystore File
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" > siren.keystore.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSWORD_GPG }}" --batch siren.keystore.asc > siren.keystore
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'microsoft'
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
         with:
           target-platform: android
-
       - run: |
-          dotnet build src/Siren.Mobile/Siren.Mobile.csproj -c Release -f net8.0-android
-
+          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
+      - name: Upload a Build Artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          path: |
+            ./**/*.aab
+            ./**/*.apk
       - name: Update Check Status
         if: always()
         uses: "./.github/steps/update_check_status"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status_name: "build-and-deploy-android"
