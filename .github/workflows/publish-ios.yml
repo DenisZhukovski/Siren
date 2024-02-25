@@ -1,0 +1,41 @@
+name: build-and-deploy-ios
+
+on:
+  workflow_run:
+    workflows: ["build-and-test"]
+    types: 
+      - completed
+env:
+  STEP_TIMEOUT_MINUTES: 60
+
+jobs:
+  build_and_deploy_job:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: build-and-deploy-ios
+    runs-on: macos-latest
+    permissions:
+      statuses: write 
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+          ref: ${{ github.event.workflow_run.head_branch }}
+      
+      - name: Install Dependencies
+        timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
+        uses: "./.github/steps/install_dependencies"
+        with:
+          target-platform: macos
+      - name: Build and Archive
+        run: |
+          dotnet build src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-ios -c Release
+      - name: Build and Archive
+        run: |
+          dotnet build src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-maccatalyst -c Release
+      - name: Update Check Status
+        if: always()
+        uses: "./.github/steps/update_check_status"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status_name: "build-and-deploy-android"
