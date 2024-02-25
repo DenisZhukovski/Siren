@@ -39,14 +39,19 @@ jobs:
 
       - name: Build and Archive
         run: |
-          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidSigningKeyStore=siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
+          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release \
+            /p:AndroidSigningKeyStore=siren.keystore \
+            /p:AndroidSigningKeyAlias=githubactionskey \
+            /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" \
+            /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}" \
+            --output ./publish
       - name: Upload a Build Artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v3.1.0
         with:
           path: |
-            ./**/publish/*.aab
-            ./**/publish/*.apk
+            ./publish/*.aab
+            ./publish/*.apk
       - name: AppCenter Distribute Mobile
         if: github.event_name != 'pull_request'
         uses: devussy/AppCenter-Distribute-Github-Action@v1.0.3
@@ -54,7 +59,7 @@ jobs:
           appName: denis_zhukosvky/Siren
           token: ${{ secrets.APP_CENTER_API_TOKEN }}
           group: Testers
-          file: ./**/publish/*Signed.aab
+          file: ./publish/com.paginablanka.siren-Signed.aab
           notifyTesters: true
           debug: false
 
