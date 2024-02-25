@@ -32,7 +32,7 @@ jobs:
           dotnet build src/Siren.Wasm/Siren.Wasm.csproj -c Release
 
       - name: Build And Deploy
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
