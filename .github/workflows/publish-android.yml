@@ -1,0 +1,36 @@
+name: build-and-deploy-android
+
+on:
+  workflow_run:
+    workflows: ["build-and-test"]
+    types: 
+      - completed
+env:
+  STEP_TIMEOUT_MINUTES: 60
+
+jobs:
+  build_and_deploy_job:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: build-and-deploy-android
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write 
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+          ref: ${{ github.event.workflow_run.head_branch }}
+
+      - name: Install Dependencies
+        timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
+        uses: "./.github/steps/install_dependencies"
+        with:
+          target-platform: android
+
+      - run: |
+          dotnet build src/Siren.Mobile/Siren.Mobile.csproj -c Release -f net8.0-android
+
+      - name: Update Check Status
+        if: always()
+        uses: "./.github/steps/update_check_status"
