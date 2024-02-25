@@ -25,6 +25,7 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_FILE }}" > siren.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYSTORE_PASSWORD_GPG }}" --batch siren.keystore.asc > siren.keystore
+          echo "Keystore path: $(pwd)/siren.keystore"
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -36,7 +37,7 @@ jobs:
         with:
           target-platform: android
       - run: |
-          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
+          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=../../../siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
       - name: Upload a Build Artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v3.1.0
@@ -44,6 +45,15 @@ jobs:
           path: |
             ./**/*.aab
             ./**/*.apk
+      - name: GitHub Action for AppCenter Distribute Mobile
+        if: github.event_name != 'pull_request'
+        uses: familiohq/appcenter-distribute-action@0.2
+        with:
+          app_secret: ${{ secrets.APP_CENTER_API_TOKEN }}
+          file_path: |
+            ./**/*.aab
+            ./**/*.apk
+          group: "Siren"
       - name: Update Check Status
         if: always()
         uses: "./.github/steps/update_check_status"
