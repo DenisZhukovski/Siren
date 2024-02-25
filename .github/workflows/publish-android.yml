@@ -47,13 +47,17 @@ jobs:
           path: |
             ./**/publish/*.aab
             ./**/publish/*.apk
-      - name: GitHub Action for AppCenter Distribute Mobile
+      - name: AppCenter Distribute Mobile
         if: github.event_name != 'pull_request'
-        uses: familiohq/appcenter-distribute-action@0.2
+        uses: devussy/AppCenter-Distribute-Github-Action@v1.0.3
         with:
-          access_token: ${{ secrets.APP_CENTER_API_TOKEN }}
-          file_path: ./**/publish/*Signed.aab
-          group: "Siren"
+          appName: denis_zhukosvky/Siren
+          token: ${{ secrets.APP_CENTER_API_TOKEN }}
+          group: Testers
+          file: ./**/publish/*Signed.aab
+          notifyTesters: true
+          debug: false
+
       - name: Update Check Status
         if: always()
         uses: "./.github/steps/update_check_status"
