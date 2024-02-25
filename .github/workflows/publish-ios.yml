@@ -12,7 +12,7 @@ jobs:
   build_and_deploy_job:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: build-and-deploy-ios
-    runs-on: macos-latest
+    runs-on: macOS-13
     permissions:
       statuses: write 
     steps:
