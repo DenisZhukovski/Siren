@@ -50,10 +50,11 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           path: |
-            ./publish/*.aab
-            ./publish/*.apk
+            ./publish/*Signed.aab
+            ./publish/*Signed.apk
       - name: AppCenter Distribute Mobile
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
+        if: github.event_name == 'push'
         uses: devussy/AppCenter-Distribute-Github-Action@v1.0.3
         with:
           appName: denis_zhukosvky/Siren
