@@ -37,9 +37,11 @@ jobs:
           echo "${{ secrets.KEYSTORE_FILE }}" > siren.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYSTORE_PASSWORD_GPG }}" --batch siren.keystore.asc > siren.keystore
           echo "Keystore path: $(pwd)/siren.keystore"
-      - run: |
+
+      - name: Build and Archive
+        run: |
           echo "$(ls)"
-          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=/siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
+          dotnet publish src/Siren.Mobile/Siren.Mobile.csproj -f net8.0-android -c Release /p:AndroidSigningKeyStore=siren.keystore /p:AndroidSigningKeyAlias=githubactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}"
       - name: Upload a Build Artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v3.1.0
