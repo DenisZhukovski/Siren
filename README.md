@@ -2,8 +2,10 @@
 
 <h3 align="center">
    
+  [![Hits-of-Code](https://hitsofcode.com/github/deniszhukovski/Siren?branch=main)](https://hitsofcode.com/github/deniszhukovski/Siren/view?branch=main)
+  [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DenisZhukovski_Siren&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DenisZhukovski_Siren)
   [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
-  <!-- [![PDD status](https://www.0pdd.com/svg?name=deniszhukovski/webrequest.elegant)](https://www.0pdd.com/p?name=deniszhukovski/webrequest.elegant) -->
+ <!-- [![PDD status](https://www.0pdd.com/svg?name=deniszhukovski/webrequest.elegant)](https://www.0pdd.com/p?name=deniszhukovski/webrequest.elegant) -->
 </h3>
 
 Siren AI Music Player is an intuitive tempo-based music library, which through the use of intelligent learning, delivers mood-based tunes to listeners.
@@ -31,3 +33,13 @@ Smart shuffling should generate the play list based on user profile.
 
 - [Shuffling](docs/Shuffling.md)
 - [Music Scheduling](docs/Music%20Scheduling.md)
+
+## Build status
+
+<div align="center">
+  
+   [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DenisZhukovski_Siren&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DenisZhukovski_Siren)
+   [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DenisZhukovski_Siren&metric=coverage)](https://sonarcloud.io/summary/new_code?id=DenisZhukovski_Siren)
+   [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=DenisZhukovski_Siren&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=DenisZhukovski_Siren)
+   [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DenisZhukovski_Siren&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=DenisZhukovski_Siren)
+</div>
