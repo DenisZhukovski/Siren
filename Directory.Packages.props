@@ -26,7 +26,7 @@
     <PackageVersion Include="Uno.WinUI.DevServer" Version="5.0.48" />
     <PackageVersion Include="Uno.WinUI.MediaPlayer.Skia.Gtk" Version="5.1.87" />
     <PackageVersion Include="Uno.WinUI.MediaPlayer.WebAssembly" Version="5.1.69" />
-    <PackageVersion Include="Uno.WinUI.Skia.Gtk" Version="5.1.69" />
+    <PackageVersion Include="Uno.WinUI.Skia.Gtk" Version="5.1.87" />
     <PackageVersion Include="Uno.WinUI.WebAssembly" Version="5.1.69" />
     <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.10.0.3" />
     <PackageVersion Include="xunit" Version="2.7.0" />
