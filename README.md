@@ -8,17 +8,19 @@
  <!-- [![PDD status](https://www.0pdd.com/svg?name=deniszhukovski/webrequest.elegant)](https://www.0pdd.com/p?name=deniszhukovski/webrequest.elegant) -->
 </h3>
 
-Siren AI Music Player is an intuitive tempo-based music library, which through the use of intelligent learning, delivers mood-based tunes to listeners.
+Siren is an intuitive tempo-based music library, which through the use of intelligent learning, delivers mood-based tunes to listeners.
 
  ![Alt text](docs/Siren.Context.png?raw=true "Sirent Context")
 
 # Major Components
 
+Siren consists of several major components providing audio experience for proper audience at proper time of the day.
+
  ![Alt text](docs/Siren.Container.png?raw=true "Sirent Software System")
 
  # Siren AI
 
-The main goal is to generate audio track based on user audio profile. Music player passes user's profile which consists of genre preferences time of the day, preffered genres etc. Based on user's profile Siren AI should generate relevant audio track to support the mood. Ideally the track should seamlessly play the next song once the current is going to finish.
+The main goal is to stream audio experience relevant to audio profile. Music player passes the profile which consists of different preferences regarding time of the day, genres, tempo etc. Based on user's profile Siren AI should generate relevant audio track to support the mood. Ideally the track should seamlessly play the next song once the current is going to finish.
 
 ![Alt text](docs/Siren.DJ.Component.png?raw=true "Sirent Software System")
 
@@ -27,7 +29,7 @@ The main goal is to generate audio track based on user audio profile. Music play
 
 # Siren Shuffling
 
-Siren shuffling should generate the play list based on user audio profile. It takes into consideration client's type, time of the day, preffered genres etc. Based on user's profile Siren AI should generate relevant playlist to support the mood.
+Siren shuffling should generate a playlist based on user audio profile to support proper mood.
 
 ![Alt text](docs/Siren.SmatrShuffling.Component.png?raw=true "Sirent Smart Shuffling Tracks")
 
