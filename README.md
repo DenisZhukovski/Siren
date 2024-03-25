@@ -25,9 +25,9 @@ The main goal is to generate audio track based on user audio profile. Music play
 - [Harmony mixing](docs/Harmony%20mixing.md)
 - [Beat-matching](docs/Beat-matching%20algo.md)
 
-# Smart Shuffling Tracks
+# Siren Shuffling
 
-Smart shuffling should generate the play list based on user profile.
+Siren shuffling should generate the play list based on user audio profile. It takes into consideration client's type, time of the day, preffered genres etc. Based on user's profile Siren AI should generate relevant playlist to support the mood.
 
 ![Alt text](docs/Siren.SmatrShuffling.Component.png?raw=true "Sirent Smart Shuffling Tracks")
 
