@@ -1,28 +1,28 @@
-# Shuffling algo
+# Siren icon and splash screen
 
-Smart shuffling over days and weeks do not excist yet, will need to be develop as know one already offer it.
+Siren is an intuitive tempo-based music library, which through the use of intelligent learning, delivers mood-based tunes to listeners.
 
-We might explore cloud-based music services or APIs that offer shuffling functionalities that can be integrated into application or platform. Here are a few potential options:
+Siren AI provides audio experience for proper audience at proper time of the day. The main goal is to stream audio experience relevant to audio profile. Music player passes the profile which consists of different preferences regarding time of the day, genres, tempo etc. Based on user's profile Siren AI should generate relevant audio track to support the mood. Ideally the track should seamlessly play the next song once the current is going to finish.
 
-## Spotify API
-- Website: Spotify for Developers
-- Description: Spotify provides APIs that allow developers to integrate various features, including playlist creation and shuffling, into their applications. You might explore the Spotify Web API for such functionalities.
+## Conceptual Design
 
-## Apple Music API
-- Website: Apple Music API
-- Description: Apple Music also offers APIs that allow developers to access various features of the Apple Music platform, including playlist management and shuffling.
+- The app icon should feature an image that distinctly portrays the Siren character from Greek mythology but also an AI impression. It should be a mix modern and ancient.
+- The icon must be visually appealing to attract users and convey the purpose of the app quickly.
+- In additional to the app icon splash screen design should be provided.
 
-## Deezer API
-- Website: Deezer for Developers
-- Description: Deezer provides APIs that allow developers to build applications with access to their music catalog, playlists, and more. You can explore their API for playlist-related functionalities.
+## Technical Requirements
 
-## SoundCloud API
-- Website: SoundCloud API
-- Description: SoundCloud offers APIs for developers to integrate SoundCloud features into their applications. You can explore their API for playlist and shuffling capabilities.
+- The app icon should be created in the compatible image files formats (such as PNG or SVG). SVG format is preferable.
+- Once icon created not in SVG it should meet the specific size and resolution requirements for each supported platform (iOS, Android, Web)
 
-## YouTube API
-- Website: YouTube API Services
-- Description: The YouTube API allows developers to access YouTube's features, and you might explore it for building applications that involve shuffling YouTube music content.
-When using these APIs, make sure to review their documentation, terms of service, and pricing. Additionally, consider the specific features and functionalities they offer, such as playlist creation, shuffling, and other related capabilities.
+## Typography
 
-Please note that the availability and features of APIs can change, so it's recommended to check the respective API documentation for the most up-to-date information.
+- Choose a font that is legible and reflects the musical aspect of the app.
+Shape and Symbolism:
+- Use shapes or symbols that convey the idea of music and AI, such as a musical note or a futuristic image.
+
+## Animation or Movement
+
+- Usually app splash screen allows for animation, consider adding movement or animation elements to make it more engaging.
+Branding Elements:
+- Its better to design company logo first and create app icon based on company's branding elements, such as a logo or specific color palette.
